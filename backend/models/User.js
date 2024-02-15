@@ -24,6 +24,17 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: [true, "Password is required"],
     },
+    walletAddress: {
+      type: String,
+      trim: true,
+      required: true,
+      default: "default_wallet_address"
+    },
+    balance: {
+      type: Number,
+      required: true,
+      default: 0
+    },
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );

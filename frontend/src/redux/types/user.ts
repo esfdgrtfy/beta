@@ -7,6 +7,8 @@ export interface IUser {
   password: string | null;
   role: string;
   date: string;
+  walletAddress: string;
+  balance: number;
 }
 
 interface IUserLoaded {

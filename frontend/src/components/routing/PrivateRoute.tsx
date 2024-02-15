@@ -26,7 +26,7 @@ const PrivateRoute: React.FC<Props> = ({
           return <Redirect to='/' />;
         }
         if (admin.isAuthenticated && admin.admin.role === "admin") {
-          return <Redirect to='/users' />;
+          return <Redirect to='/dashboard' />;
         }
         if (user.isAuthenticated && user.user.role === "user") {
           return <Component {...props} />;

@@ -4,28 +4,30 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 
-import { logOutUser } from "redux/actions/user";
 import { logOutAdmin } from "redux/actions/admin";
 import { RootState } from "redux/reducers";
+
+import { Bell, Globe } from "@geist-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: "flex",
     justifyContent: "space-between",
-    backgroundColor: "#222",
-    zIndex: 2
+    backgroundColor: "#5C4DB2",
+    padding: "0 10%",
+    marginBottom: "5vh",
+    zIndex: 2,
   },
   title: {
-    color: "#fff"
+    color: "#fff",
   },
   navLink: {
-    textDecoration: 'none',
-    color: '#f4f4f4',
+    textDecoration: "none",
+    color: "#f4f4f4",
     fontFamily: "Roboto",
-    padding: theme.spacing(1, 2)
-  }
+    padding: theme.spacing(1, 2),
+  },
 }));
 
 const AppHeader: React.FC = (): JSX.Element => {
@@ -35,31 +37,38 @@ const AppHeader: React.FC = (): JSX.Element => {
   const user = useSelector((state: RootState) => state.user);
   const admin = useSelector((state: RootState) => state.admin);
 
-  const topLinks =
-    user.isAuthenticated && user.user.role === "user" ? (
-      <NavLink exact to='/dashboard' className={`${classes.navLink} nav-link`}>
-        Dashboard
-      </NavLink>
-    ) : admin.isAuthenticated && admin.admin.role === "admin" ? (
-      <NavLink exact to='/users' className={`${classes.navLink} nav-link`}>
-        Dashboard
-      </NavLink>
-    ) : null;
-
-  const bottomLinks = user.isAuthenticated ? (
-    <NavLink exact to='#' className={`${classes.navLink} nav-link`} onClick={(e) => dispatch(logOutUser())}>
+  const topLinks = user.isAuthenticated ? (
+    <Bell color="#fff" />
+  ) : admin.isAuthenticated ? (
+    <NavLink
+      exact
+      to="#"
+      className={`${classes.navLink} nav-link`}
+      onClick={(e) => dispatch(logOutAdmin())}
+    >
       Logout
     </NavLink>
+  ) : (
+    <></>
+  );
+
+  const bottomLinks = user.isAuthenticated ? (
+    <Globe color="#fff" />
   ) : admin.isAuthenticated ? (
-    <NavLink exact to='#' className={`${classes.navLink} nav-link`} onClick={(e) => dispatch(logOutAdmin())}>
+    <NavLink
+      exact
+      to="#"
+      className={`${classes.navLink} nav-link`}
+      onClick={(e) => dispatch(logOutAdmin())}
+    >
       Logout
     </NavLink>
   ) : (
     <>
-      <NavLink exact to='/register' className={`${classes.navLink} nav-link`}>
+      <NavLink exact to="/register" className={`${classes.navLink} nav-link`}>
         Register
       </NavLink>
-      <NavLink exact to='/' className={`${classes.navLink} nav-link`}>
+      <NavLink exact to="/" className={`${classes.navLink} nav-link`}>
         Login
       </NavLink>
     </>
@@ -67,11 +76,8 @@ const AppHeader: React.FC = (): JSX.Element => {
 
   return (
     <Toolbar className={classes.toolbar}>
-      <Typography variant='h6' noWrap className={classes.title}>
-        Multi Auth
-      </Typography>
-      <div>{topLinks}</div>
-      <div>{bottomLinks}</div>
+      {topLinks}
+      {bottomLinks}
     </Toolbar>
   );
 };

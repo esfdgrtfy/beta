@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Loading } from "@geist-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +21,7 @@ const AppLoader: React.FC = (): JSX.Element => {
 
   return (
     <div className={classes.root}>
-      <CircularProgress />
+      <Loading spaceRatio={2.5} />
     </div>
   );
 };

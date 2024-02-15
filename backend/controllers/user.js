@@ -4,11 +4,12 @@ const { sign } = require("jsonwebtoken");
 const User = require("../models/User");
 
 exports.register = async (req, res, next) => {
-  const { username, email, password, role } = req.body;
-  if(!username || !email || !password || !role)
+  const { username, email, password, role, walletAddress } = req.body;
+  if(!username || !email || !password || !role || !walletAddress)
     return res.status(400).send("Please fill in all the required fields!")
+
   try {
-    const userObj = { username, email, role };
+    const userObj = { username, email, role, walletAddress }; // Добавлено walletAddress
     const hashedPwd = await hash(password, 12);
     userObj.password = hashedPwd;
     const user = await new User(userObj).save();
@@ -20,6 +21,7 @@ exports.register = async (req, res, next) => {
     return res.status(500).send(error.message);
   }
 };
+
 
 exports.login = async (req, res, next) => {
   const { username, password } = req.body;

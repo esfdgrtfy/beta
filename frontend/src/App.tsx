@@ -9,6 +9,8 @@ import Routes from "components/routing/Routes";
 import { setAdminAuthToken, setUserAuthToken } from "utils/headers";
 import { loadUser } from "redux/actions/user";
 import { loadAdmin } from "redux/actions/admin";
+import { GeistProvider, CssBaseline } from '@geist-ui/core';
+import AppMenu from "layouts/navigation/AppMenu";
 
 if (localStorage.admin__token) setAdminAuthToken(localStorage.admin__token);
 if (localStorage.user__token) setUserAuthToken(localStorage.user__token);
@@ -16,19 +18,25 @@ if (localStorage.user__token) setUserAuthToken(localStorage.user__token);
 const App: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();
 
-  React.useEffect(() => dispatch<any>(loadUser()), [dispatch]);
-  React.useEffect(() => dispatch<any>(loadAdmin()), [dispatch]);
+  React.useEffect(() => {
+    dispatch(loadUser());
+    dispatch(loadAdmin());
+  }, [dispatch]);
 
   return (
-    <BrowserRouter>
-    <>
-      <AppHeader />
-      <main className='app'>
-        <Routes />
-        <Alert />
-      </main>
-    </>
-    </BrowserRouter>
+    <GeistProvider>
+      <CssBaseline />
+      <BrowserRouter>
+        <>
+          <AppHeader />
+          <main className='app'>
+            <Routes />
+            <Alert />
+          </main>
+          <AppMenu />
+        </>
+      </BrowserRouter>
+    </GeistProvider>
   );
 };
 

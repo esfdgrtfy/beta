@@ -10,14 +10,14 @@ import { IAlertState } from "redux/types/alert";
 const useStyles = makeStyles((theme) => ({
   alertWrapper: {
     position: "absolute",
-    top: "5rem",
+    top: "5rem", 
     right: "2rem",
     width: "20%",
     display: "flex",
     flexDirection: "column",
     gap: ".5rem",
   },
-}));
+}));           
 
 const Alert: React.FC = (): JSX.Element | null => {
   const classes = useStyles();

@@ -21,6 +21,7 @@ interface IValues {
   username: string;
   email?: string;
   password: string;
+  walletAddress: string; 
 }
 
 const FormField: React.FC<Props> = ({ isRegister = false }): JSX.Element => {
@@ -44,19 +45,34 @@ const FormField: React.FC<Props> = ({ isRegister = false }): JSX.Element => {
         />
       </FormControl>
       {isRegister ? (
-        <FormControl fullWidth className={classes.formControl}>
-          <FormLabel classes={{ root: classes.formLabel }}>Email</FormLabel>
-          <TextField
-            fullWidth
-            name='email'
-            value={values.email}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            placeholder='Enter email'
-            helperText={touched.email ? errors.email : ""}
-            error={touched.email ? Boolean(errors.email) : false}
-          />
-        </FormControl>
+        <>
+          <FormControl fullWidth className={classes.formControl}>
+            <FormLabel classes={{ root: classes.formLabel }}>Email</FormLabel>
+            <TextField
+              fullWidth
+              name='email'
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder='Enter email'
+              helperText={touched.email ? errors.email : ""}
+              error={touched.email ? Boolean(errors.email) : false}
+            />
+          </FormControl>
+          <FormControl fullWidth className={classes.formControl}>
+            <FormLabel classes={{ root: classes.formLabel }}>Wallet Address</FormLabel>
+            <TextField
+              fullWidth
+              name='walletAddress'
+              value={values.walletAddress}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              placeholder='Enter wallet address'
+              helperText={touched.walletAddress ? errors.walletAddress : ""}
+              error={touched.walletAddress ? Boolean(errors.walletAddress) : false}
+            />
+          </FormControl>
+        </>
       ) : null}
       <FormControl fullWidth className={classes.formControl}>
         <FormLabel classes={{ root: classes.formLabel }}>Password</FormLabel>

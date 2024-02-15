@@ -40,17 +40,17 @@ const Users: React.FC = (): JSX.Element => {
   return (
     <div className={styles.root}>
       <div style={{ marginBottom: "5rem" }}>
-        <h4>Users</h4>
+        <h4>Users list</h4>
         {users?.map((user: any) => <UserForm user={user} key={user._id} />) ?? (
           <p>No Users Found.</p>
         )}
       </div>
-      <div>
+      {/* <div>
         <h4>Admins</h4>
         {admins?.map((user: any) => (
           <UserForm user={user} key={user._id} />
         )) ?? <p>No Users Found.</p>}
-      </div>
+      </div> */}
     </div>
   );
 };

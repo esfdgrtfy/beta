@@ -8,7 +8,7 @@ const db = require("./config/db");
 
 const app = express();
 
-dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "./config/.env" });
 
 if (process.env.NODE_ENV === "production") console.log = function() {};
 
