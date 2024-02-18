@@ -1,7 +1,7 @@
 import React from "react";
 
 const About: React.FC = (): JSX.Element => {
-  return <>rgf</>;
+  return <>About</>;
 };
 
 export default About;

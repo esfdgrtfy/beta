@@ -1,7 +1,7 @@
 import React from "react";
 
 const Event: React.FC = (): JSX.Element => {
-  return <>rgf</>;
+  return <>Event</>;
 };
 
 export default Event;

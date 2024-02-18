@@ -1,7 +1,7 @@
 import React from "react";
 
 const Deposit: React.FC = (): JSX.Element => {
-  return <>rgf</>;
+  return <>Deposit</>;
 };
 
 export default Deposit;

@@ -1,7 +1,7 @@
 import React from "react";
 
 const Withdraw: React.FC = (): JSX.Element => {
-  return <>rgf</>;
+  return <>Withdraw</>;
 };
 
 export default Withdraw;
