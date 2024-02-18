@@ -165,34 +165,33 @@ export const updateUser =
   };
 
 // DELETE USER
-export const deleteUser =
-  (id: number) => async (dispatch: Dispatch<AdminActions | AlertActions>) => {
-    const config: any = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    try {
-      await axios.delete(`${URI}/users/${id}`, config);
-      dispatch({ type: types.DELETE_USER, payload: id });
-      dispatch<any>(
-        setAlert({
-          msg: "User has been deleted!",
-          status: 200,
-          alertType: "success",
-        })
-      );
-    } catch (error: any) {
-      dispatch<any>(
-        setAlert({
-          msg: "Something went wrong when deleting the users!",
-          status: error.response.status,
-          alertType: "error",
-        })
-      );
-    }
+export const deleteUser = (id: number) => async (dispatch: Dispatch<any>) => {
+  const config: any = {
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
+
+  try {
+    await axios.delete(`${URI}/users/${id}`, config);
+    dispatch({ type: types.DELETE_USER, payload: id });
+    dispatch<any>(
+      setAlert({
+        msg: "User has been deleted!",
+        status: 200,
+        alertType: "success",
+      })
+    );
+  } catch (error: any) {
+    dispatch<any>(
+      setAlert({
+        msg: "Something went wrong when deleting the user!",
+        status: error.response.status,
+        alertType: "error",
+      })
+    );
+  }
+};
 
 // LOGOUT ADMIN
 export const logOutAdmin =

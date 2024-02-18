@@ -9,6 +9,7 @@ import { logOutAdmin } from "redux/actions/admin";
 import { RootState } from "redux/reducers";
 
 import { Bell, Globe } from "@geist-ui/icons";
+import { Drawer, Modal, useModal } from "@geist-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -37,32 +38,42 @@ const AppHeader: React.FC = (): JSX.Element => {
   const user = useSelector((state: RootState) => state.user);
   const admin = useSelector((state: RootState) => state.admin);
 
+  const [state, setState] = React.useState(false);
+  const [placement, setPlacement] = React.useState("");
+  const open = (text: string) => {
+    setPlacement(text);
+    setState(true);
+  };
+
+  const { visible, setVisible, bindings } = useModal();
+
   const topLinks = user.isAuthenticated ? (
-    <Bell color="#fff" />
+    <div style={{ cursor: "pointer" }}>
+      <Bell onClick={() => open("left")} scale={1 / 2} color="#fff" />
+      <Drawer
+        visible={state}
+        onClose={() => setState(false)}
+        placement={"left"}
+      >
+        <Drawer.Title>Drawer</Drawer.Title>
+        <Drawer.Subtitle>This is a drawer</Drawer.Subtitle>
+        <Drawer.Content>
+          <p>Some content contained within the drawer.</p>
+        </Drawer.Content>
+      </Drawer>
+    </div>
   ) : admin.isAuthenticated ? (
-    <NavLink
-      exact
-      to="#"
-      className={`${classes.navLink} nav-link`}
-      onClick={(e) => dispatch(logOutAdmin())}
-    >
-      Logout
-    </NavLink>
+    <></>
   ) : (
     <></>
   );
 
   const bottomLinks = user.isAuthenticated ? (
-    <Globe color="#fff" />
+    <div style={{ cursor: "pointer" }}>
+      <Globe onClick={() => setVisible(true)} color="#fff" />
+    </div>
   ) : admin.isAuthenticated ? (
-    <NavLink
-      exact
-      to="#"
-      className={`${classes.navLink} nav-link`}
-      onClick={(e) => dispatch(logOutAdmin())}
-    >
-      Logout
-    </NavLink>
+    <></>
   ) : (
     <>
       <NavLink exact to="/register" className={`${classes.navLink} nav-link`}>

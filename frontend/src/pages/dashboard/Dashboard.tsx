@@ -101,40 +101,57 @@ const Dashboard: React.FC = (): JSX.Element => {
       <Grid xs={12}>
         <Grid.Container gap={4} justify="center">
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={Deposit} alt="Deposit" />
+            <Link href="/deposit">
+              <Image width="100%" height="auto" src={Deposit} alt="Deposit" />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={Withdraw} alt="Withdraw" />
+            <Link href="/withdraw">
+              <Image width="100%" height="auto" src={Withdraw} alt="Withdraw" />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={Wallet} alt="Wallet" />
+            <Link href="/wallet">
+              <Image width="100%" height="auto" src={Wallet} alt="Wallet" />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={Event} alt="Event" />
+            <Link href="/event">
+              <Image width="100%" height="auto" src={Event} alt="Event" />
+            </Link>
           </Grid>
         </Grid.Container>
       </Grid>
       <Grid xs={12}>
         <Grid.Container gap={4} justify="center">
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={About} alt="About" />
+            <Link href="/about">
+              <Image width="100%" height="auto" src={About} alt="About" />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={Rules} alt="Rules" />
+            <Link href="/rules">
+              <Image width="100%" height="auto" src={Rules} alt="Rules" />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image
-              width="100%"
-              height="auto"
-              src={Description}
-              alt="Description"
-            />
+            <Link href="/description">
+              <Image
+                width="100%"
+                height="auto"
+                src={Description}
+                alt="Description"
+              />
+            </Link>
           </Grid>
           <Grid xs={3.2}>
-            <Image width="100%" height="auto" src={News} alt="News" />
+            <Link href="/news">
+              <Image width="100%" height="auto" src={News} alt="News" />
+            </Link>
           </Grid>
         </Grid.Container>
       </Grid>
+
       {/* <Grid xs={12}>
         <ul className="list-none">
           {profitData.map((user, index) => (

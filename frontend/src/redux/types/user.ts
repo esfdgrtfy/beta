@@ -1,6 +1,7 @@
 import types from "redux/actions/types";
 
 export interface IUser {
+  id(id: any): (dispatch: import("redux").Dispatch<any>) => Promise<void>;
   _id: any;
   username: string;
   email: string;

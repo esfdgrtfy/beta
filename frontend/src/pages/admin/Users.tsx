@@ -1,12 +1,11 @@
 import * as React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-
-import UserForm from "./UserForm";
-import { getUsers } from "redux/actions/admin";
-import { RootState } from "redux/reducers";
-import { IAdmin } from "redux/types/admin";
+import { Button, Modal, Table } from "@geist-ui/core";
 import { IUser } from "redux/types/user";
+import { IAdmin } from "redux/types/admin";
+import { RootState } from "redux/reducers";
+import { getUsers, deleteUser } from "redux/actions/admin";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +20,27 @@ const Users: React.FC = (): JSX.Element => {
 
   const [users, setUsers] = React.useState<IUser[]>([]);
   const [admins, setAdmins] = React.useState<IAdmin[]>([]);
+  const [selectedUser, setSelectedUser] = React.useState<IUser | null>(null);
   const admin = useSelector((state: RootState) => state.admin);
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  console.log(users);
+
+  const openModal = (user: IUser) => {
+    setSelectedUser(user);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleDeleteUser = (user: IUser) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      // Assuming user.id is the ID of the user and it's a number
+      dispatch(deleteUser(Number(user.id))); // Convert user.id to a number
+    }
+  };
 
   React.useEffect(() => {
     dispatch(getUsers());
@@ -29,7 +48,6 @@ const Users: React.FC = (): JSX.Element => {
 
   React.useEffect(() => {
     setUsers(() => admin?.users?.filter((user: any) => user.role === "user"));
-
     setAdmins(() => admin?.users?.filter((user: any) => user.role === "admin"));
   }, [admin]);
 
@@ -39,18 +57,50 @@ const Users: React.FC = (): JSX.Element => {
 
   return (
     <div className={styles.root}>
-      <div style={{ marginBottom: "5rem" }}>
-        <h4>Users list</h4>
-        {users?.map((user: any) => <UserForm user={user} key={user._id} />) ?? (
-          <p>No Users Found.</p>
-        )}
-      </div>
-      {/* <div>
-        <h4>Admins</h4>
-        {admins?.map((user: any) => (
-          <UserForm user={user} key={user._id} />
-        )) ?? <p>No Users Found.</p>}
-      </div> */}
+      <Table data={users}>
+        <Table.Column prop="username" label="Username" />
+        <Table.Column prop="email" label="Email" />
+        <Table.Column
+          prop="operation"
+          label="Operation"
+          width={150}
+          render={(value, rowData) => (
+            <Button
+              type="secondary"
+              auto
+              scale={1 / 3}
+              font="12px"
+              onClick={() => openModal(rowData as unknown as IUser)}
+            >
+              Update
+            </Button>
+          )}
+        />
+        <Table.Column
+          prop="delete"
+          label="Delete"
+          width={150}
+          render={(value, rowData) => (
+            <Button
+              type="error"
+              auto
+              scale={1 / 3}
+              font="12px"
+              onClick={() => handleDeleteUser(rowData as unknown as IUser)}
+            >
+              Delete
+            </Button>
+          )}
+        />
+      </Table>
+      <Modal visible={modalVisible} onClose={closeModal}>
+        <Modal.Title>User: {selectedUser?.username}</Modal.Title>
+        <Modal.Content>
+          <p>Email: {selectedUser?.email}</p>
+          <p>Balance: {selectedUser?.balance}</p>
+          <p>Wallet Address: {selectedUser?.walletAddress}</p>
+        </Modal.Content>
+      </Modal>
     </div>
   );
 };

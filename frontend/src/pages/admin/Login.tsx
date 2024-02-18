@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 
 import FormField from "pages/auth/FormField";
-import { loginUser } from "redux/actions/user";
+import { loginAdmin } from "redux/actions/admin";
 
 interface IInitialValues {
   username: string;
@@ -21,7 +21,7 @@ const Login: React.FC = (): JSX.Element => {
   };
 
   const onHandleSubmit = (values: IInitialValues, { setSubmitting }: any) => {
-    dispatch(loginUser(values, setSubmitting));
+    dispatch(loginAdmin(values, setSubmitting));
   };
 
   const validationSchema = Yup.object({
